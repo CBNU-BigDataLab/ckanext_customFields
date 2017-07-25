@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block package_basic_fields_custom %}
+{{ super() }}
+  {{ form.input('language', label=_('Language'), id='field-language', placeholder=_('English'), value=data.language, error=errors.language, classes=['control-medium']) }}
+{% endblock %}

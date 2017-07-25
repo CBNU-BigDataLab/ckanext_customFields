@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block extras %}
+  {% if pkg_dict.language %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Language") }}</th>
+      <td class="dataset-details">{{ pkg_dict.language }}</td>
+    </tr>
+
+  {% endif %}
+{% endblock %}
