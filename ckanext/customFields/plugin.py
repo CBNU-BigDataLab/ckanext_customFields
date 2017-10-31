@@ -12,8 +12,15 @@ class CustomFieldsPlugin(plugins.SingletonPlugin,
     def dataset_facets(self, facets_dict, package_type):
 	#facets_dict['num_resources'] = toolkit._('Number of Resources')
 	facets_dict['language'] = toolkit._('Languages')
-
+        facets_dict['dataset_format'] = 'Dataset Format'
+        facets_dict['topic'] = 'Topic'
+       
 	return facets_dict
+    def organization_facets(self, facets_dict, organization_type, package_type):
+        facets_dict['language'] = toolkit._('Languages')
+        facets_dict['dataset_format'] = 'Dataset Format'
+        facets_dict['topic'] = 'Topic'
+        return facets_dict
 
     def _modify_package_schema(self, schema):
 	# Our custom field
@@ -21,6 +28,17 @@ class CustomFieldsPlugin(plugins.SingletonPlugin,
 		'language': [toolkit.get_validator('ignore_missing'),
                             toolkit.get_converter('convert_to_extras')],
         })
+
+        schema.update({
+		'dataset_format': [toolkit.get_validator('ignore_missing'),
+				   toolkit.get_converter('convert_to_extras')],
+        })  
+
+        schema.update({
+                'topic': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_extras')],
+        })
+
 				
 	return schema
 
@@ -43,6 +61,15 @@ class CustomFieldsPlugin(plugins.SingletonPlugin,
         schema.update({
                 'language': [toolkit.get_converter('convert_from_extras'),
 				toolkit.get_validator('ignore_missing')],
+        })
+
+        schema.update({
+		'dataset_format': [toolkit.get_converter('convert_from_extras'),
+                                toolkit.get_validator('ignore_missing')],
+        })
+        schema.update({
+                'topic': [toolkit.get_converter('convert_from_extras'),
+                          toolkit.get_validator('ignore_missing')],
         })
 
         return schema

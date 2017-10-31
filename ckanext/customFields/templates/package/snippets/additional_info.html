@@ -6,6 +6,19 @@
       <th scope="row" class="dataset-label">{{ _("Language") }}</th>
       <td class="dataset-details">{{ pkg_dict.language }}</td>
     </tr>
-
   {% endif %}
+  {% if pkg_dict.dataset_format %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Dataset Format") }}</th>
+      <td class="dataset-details">{{ pkg_dict.dataset_format }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.topic %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Topic") }}</th>
+      <td class="dataset-details">{{ pkg_dict.topic }}</td>
+    </tr>
+  {% endif %}
+
+
 {% endblock %}

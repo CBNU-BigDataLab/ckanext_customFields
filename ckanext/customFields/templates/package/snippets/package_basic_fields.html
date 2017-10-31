@@ -1,6 +1,57 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
-{{ super() }}
-  {{ form.input('language', label=_('Language'), id='field-language', placeholder=_('English'), value=data.language, error=errors.language, classes=['control-medium']) }}
+  {{ super() }}
+  <div class="form-group control-medium">
+    <label for="field-language" class="control-label">{{ _('Language') }}</label>
+    <div class="controls">
+      <select class="form-control" id="field-language" name="language">
+        {% for locale in h.get_available_locales() %}
+           <option value="{{locale.display_name}}" {% if locale.display_name == data.get('language') %}selected="selected"{% endif %}>
+             {{ locale.display_name or locale.english_name }}
+           </option>
+       {% endfor %}
+      </select>
+    </div>
+  </div> 
+  <div class="form-group control-medium">
+    {% set error = errors.dataset_format %}
+    <label class="control-label" for="field-datase_format">{{ _("Dataset Format") }}</label>
+    <div class="controls">
+          <select id="field-dataset_format" name="dataset_format" class="form-control">
+            <option value="파일데이터" {% if '파일데이터' == data.get('dataset_format') %}selected="selected"{% endif %}>파일데이터</option>
+            <option value="오픈API 데이터" {% if '오픈API 데이터' == data.get('dataset_format') %}selected="selected"{% endif %}>오픈API 데이터</option>
+          </select>
+          {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
+    </div>
+  </div>
+  <div class="form-group control-medium">
+    {% set error = errors.topic %}
+    {% set topics = ['국제보건의료',
+                     '의약품',
+		     '질병',
+                     '건강',
+                     '환자',
+                     '병원',
+                     '노인',
+                     '진료행위',
+                     '의료',
+                     '통계',
+                     '임상Data',
+                     '장애',
+                     '치료',
+                     '연구',
+                     '기타'
+		    ] 
+    %}
+    <label class="control-label" for="field-topic">{{ _("Topic") }}</label>
+    <div class="controls">
+          <select id="field-topic" name="topic" class="form-control">
+	    {% for topic in topics %}
+            <option value="{{ topic }}" {% if topic == data.get('topic') %}selected="selected"{% endif %}>{{ topic }}</option>
+            {% endfor %}
+          </select>
+          {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
+    </div>
+  </div>
 {% endblock %}
